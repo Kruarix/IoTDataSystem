@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yryun.system.mapper.DeviceMapper">
+
+    <select id="getDeviceListAdmin" resultType="Device">
+        SELECT * FROM t_device
+        order by online_offline desc
+    </select>
+
+    <insert id="insertDeviceInfo" parameterType="Device" >
+        INSERT INTO t_device( cusdevice_no, cusdevice_name, position, address, cusdevice_config_status, online_offline, scada_alarm )
+        VALUES (
+                #{cusdeviceNo},
+                #{cusdeviceName},
+                #{position},
+                #{address},
+                #{cusdeviceConfigStatus},
+                #{onlineOffline},
+                #{scadaAlarm}
+                )
+    </insert>
+
+    <update id="updateDeviceInfo" parameterType="Device" >
+        UPDATE t_device
+        SET
+            cusdevice_name = #{cusdeviceName},
+            position = #{position},
+            address = #{address},
+            cusdevice_config_status = #{cusdeviceConfigStatus},
+            online_offline = #{onlineOffline},
+            scada_alarm = #{scadaAlarm}
+        WHERE cusdevice_no = #{cusdeviceNo};
+    </update>
+
+    <select id="findDeviceByDeviceNo" resultType="Device">
+        SELECT * FROM t_device
+        WHERE cusdevice_no = #{cusdeviceNo}
+    </select>
+
+
+
+</mapper>
